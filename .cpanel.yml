@@ -1,7 +1,5 @@
 ---
-# Deploy: publish a staging copy at https://allbrightcare.com.au/_staging-89214765bbb6/ (noindex).
-# The live site at the domain root is not touched.
+# Dry run: check go-live preconditions on the server. Changes nothing.
 deployment:
   tasks:
-    - /bin/mkdir -p /home8/sp123519/public_html/_staging-89214765bbb6
-    - /bin/cp -R staging/. /home8/sp123519/public_html/_staging-89214765bbb6/
+    - /bin/bash /home8/sp123519/repositories/allbright-care-site/deploy/go-live.sh --check

@@ -1,0 +1,6 @@
+---
+# ROLLBACK (inactive). To use: copy this file over .cpanel.yml, commit, push, pull, deploy.
+# Moves the new site aside and puts the Sitejet site back from ~/_old-site-2026-09-13.
+deployment:
+  tasks:
+    - /bin/bash /home8/sp123519/repositories/allbright-care-site/deploy/rollback.sh
