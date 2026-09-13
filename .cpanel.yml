@@ -1,5 +1,6 @@
 ---
-# Dry run: check go-live preconditions on the server. Changes nothing.
+# GO LIVE: move the Sitejet site aside into ~/_old-site-2026-09-13 and publish site/.
+# Rollback: see deploy/rollback.cpanel.yml.
 deployment:
   tasks:
-    - /bin/bash /home8/sp123519/repositories/allbright-care-site/deploy/go-live.sh --check
+    - /bin/bash /home8/sp123519/repositories/allbright-care-site/deploy/go-live.sh
