@@ -6,7 +6,7 @@
 # If anything fails after the archive exists, public_html is restored from it.
 #
 #   bash release.sh --check   preconditions only, changes nothing
-#   bash release.sh           release
+#   ARCHIVE=/home8/sp123519/site-backups/public_html-<name>.tar.gz bash release.sh
 set -euo pipefail
 shopt -s dotglob nullglob
 
@@ -14,13 +14,16 @@ ACCOUNT_HOME="${ACCOUNT_HOME:-/home8/sp123519}"
 WEB="$ACCOUNT_HOME/public_html"
 SRC="${SRC:-$ACCOUNT_HOME/repositories/allbright-care-site/site}"
 BACKUPS="${BACKUPS:-$ACCOUNT_HOME/site-backups}"
-ARCHIVE="$BACKUPS/public_html-$(date +%Y%m%d-%H%M%S).tar.gz"
+# Name the archive in .cpanel.yml (ARCHIVE=...) so a rollback can name it too: without
+# file access the backups folder cannot be listed afterwards.
+ARCHIVE="${ARCHIVE:-$BACKUPS/public_html-$(date +%Y%m%d-%H%M%S).tar.gz}"
 
 fail() { echo "release: $*" >&2; exit 1; }
 [ -d "$WEB" ] || fail "no $WEB"
 [ -f "$SRC/index.html" ] && [ -f "$SRC/.htaccess" ] && [ -d "$SRC/assets" ] || fail "build incomplete in $SRC"
 grep -q 'noindex' "$SRC/index.html" && fail "$SRC is a staging build (noindex)"
 [ -e "$SRC/_redirects" ] && fail "$SRC contains Cloudflare _redirects; build with scripts/build-cpanel.sh"
+[ -e "$ARCHIVE" ] && fail "$ARCHIVE already exists; name a new archive"
 
 if [ "${1:-}" = "--check" ]; then
   echo "release check passed: $(ls -A "$WEB" | wc -l | tr -d ' ') entries in public_html, build ready"

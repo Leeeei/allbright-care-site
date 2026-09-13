@@ -1,5 +1,6 @@
 ---
-# Dry run: check release preconditions on the server. Changes nothing.
+# RELEASE: privacy policy. Archives public_html to /home8/sp123519/site-backups/public_html-20260913-before-privacy.tar.gz first.
+# Rollback: restore.sh public_html-20260913-before-privacy.tar.gz
 deployment:
   tasks:
-    - /bin/bash /home8/sp123519/repositories/allbright-care-site/deploy/release.sh --check
+    - /usr/bin/env ARCHIVE=/home8/sp123519/site-backups/public_html-20260913-before-privacy.tar.gz /bin/bash /home8/sp123519/repositories/allbright-care-site/deploy/release.sh
