@@ -1,0 +1,7 @@
+---
+# Deploy 1 of 3: back up public_html exactly as it is. Changes nothing the site serves.
+deployment:
+  tasks:
+    - /bin/mkdir -p /home8/sp123519/site-backups
+    - /bin/tar -czf /home8/sp123519/site-backups/public_html-2026-09-13.tar.gz -C /home8/sp123519 public_html
+    - /bin/cp /home8/sp123519/site-backups/public_html-2026-09-13.tar.gz /home8/sp123519/public_html/backup-f888bd0467760ae7a68d839f.tar.gz

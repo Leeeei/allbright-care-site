@@ -1,0 +1,5 @@
+# Launched. The review-build blanket Disallow is gone; see CONTRIBUTING.md.
+User-agent: *
+Allow: /
+
+Sitemap: https://allbrightcare.com.au/sitemap.xml
