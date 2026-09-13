@@ -1,0 +1,77 @@
+# Apache config for cPanel hosting (Crazy Domains). Cloudflare Pages ignores
+# this file and reads public/_redirects instead; keep the two in step.
+#
+# Deploy note: this assumes public_html holds ONLY the contents of dist/.
+# Leftover builder folders (about-us/, services/, contact/) would win over the
+# rewrites below, because real directories are served before the app is.
+
+Options -Indexes
+DirectoryIndex index.html
+
+# Most hosts already refuse these; do not rely on it.
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # One address. www goes to the bare domain.
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+  # http goes to https. The host fronts http with nginx and serves https from
+  # Apache directly, so check the proxy header too, or http loops forever.
+  # Only safe once the certificate is valid: it sends every visitor to https.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # Addresses from the old Website Builder site, so bookmarks and search
+  # results land on the nearest page instead of "That page is not here".
+  # Targets are absolute: behind the host's http proxy, a relative target
+  # would be completed with http:// and cost visitors a second redirect.
+  RewriteRule ^about-us/?$ https://%{HTTP_HOST}/_staging-89214765bbb6/ [R=301,L]
+  RewriteRule ^services/?$ https://%{HTTP_HOST}/_staging-89214765bbb6/how-we-help [R=301,L]
+  RewriteRule ^contact/$ https://%{HTTP_HOST}/_staging-89214765bbb6/contact [R=301,L]
+  # Point this at the privacy page once it exists. Until then, the old address
+  # shows the app's not-found page rather than pretending a policy is there.
+  # RewriteRule ^privacy-and-cookies-policy/?$ https://%{HTTP_HOST}/_staging-89214765bbb6/privacy [R=301,L]
+
+  # Real files are served as they are; every other path is a route of the app.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule ^ /_staging-89214765bbb6/index.html [L]
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType video/mp4 .mp4
+  AddType image/webp .webp
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml application/xml text/plain
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Staging copy on the live domain: never index it.
+  Header always set X-Robots-Tag "noindex, nofollow"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # The HTML names the current asset files, so it must never be served stale.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # Vite puts a content hash in these names, so a changed file is a new URL.
+  <FilesMatch "-[A-Za-z0-9_-]{8,}\.(js|css|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # Photos, clips and posters keep their names between releases: a week, not a year.
+  <FilesMatch "\.(jpe?g|png|webp|svg|mp4|ico)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>

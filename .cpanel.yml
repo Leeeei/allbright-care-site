@@ -1,8 +1,7 @@
 ---
-# Cleanup after deploy 1: remove the temporary public download of the backup and the
-# leftover probe repositories. The backup itself stays in /home8/sp123519/site-backups.
+# Deploy: publish a staging copy at https://allbrightcare.com.au/_staging-89214765bbb6/ (noindex).
+# The live site at the domain root is not touched.
 deployment:
   tasks:
-    - /bin/rm -f /home8/sp123519/public_html/backup-f888bd0467760ae7a68d839f.tar.gz
-    - /bin/rm -rf /home8/sp123519/repositories/deploy-probe
-    - /bin/rm -rf /home8/sp123519/repositories/deploy-probe-2
+    - /bin/mkdir -p /home8/sp123519/public_html/_staging-89214765bbb6
+    - /bin/cp -R staging/. /home8/sp123519/public_html/_staging-89214765bbb6/
