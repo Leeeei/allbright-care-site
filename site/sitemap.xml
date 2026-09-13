@@ -49,6 +49,14 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://allbrightcare.com.au/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en-AU" href="https://allbrightcare.com.au/privacy"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://allbrightcare.com.au/zh/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://allbrightcare.com.au/privacy"/>
+    <lastmod>2026-09-13</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://allbrightcare.com.au/zh</loc>
     <xhtml:link rel="alternate" hreflang="en-AU" href="https://allbrightcare.com.au/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://allbrightcare.com.au/zh"/>
@@ -93,6 +101,14 @@
     <xhtml:link rel="alternate" hreflang="en-AU" href="https://allbrightcare.com.au/contact"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://allbrightcare.com.au/zh/contact"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://allbrightcare.com.au/contact"/>
+    <lastmod>2026-09-13</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://allbrightcare.com.au/zh/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en-AU" href="https://allbrightcare.com.au/privacy"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://allbrightcare.com.au/zh/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://allbrightcare.com.au/privacy"/>
     <lastmod>2026-09-13</lastmod>
     <priority>0.8</priority>
   </url>

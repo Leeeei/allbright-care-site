@@ -34,9 +34,7 @@ DirectoryIndex index.html
   RewriteRule ^about-us/?$ https://%{HTTP_HOST}/ [R=301,L]
   RewriteRule ^services/?$ https://%{HTTP_HOST}/how-we-help [R=301,L]
   RewriteRule ^contact/$ https://%{HTTP_HOST}/contact [R=301,L]
-  # Point this at the privacy page once it exists. Until then, the old address
-  # shows the app's not-found page rather than pretending a policy is there.
-  # RewriteRule ^privacy-and-cookies-policy/?$ https://%{HTTP_HOST}/privacy [R=301,L]
+  RewriteRule ^privacy-and-cookies-policy/?$ https://%{HTTP_HOST}/privacy [R=301,L]
 
   # Real files are served as they are; every other path is a route of the app.
   RewriteCond %{REQUEST_FILENAME} -f [OR]
