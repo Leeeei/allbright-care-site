@@ -1,6 +1,5 @@
 ---
-# RELEASE: archive public_html to a 20260913-before-remove-form-noteD archive, then publish site/. Replace NAME
-# (e.g. 20260920-before-<change>) and record it: restore.sh needs the exact name.
+# Dry run: check release preconditions on the server. Changes nothing.
 deployment:
   tasks:
-    - /usr/bin/env ARCHIVE=/home8/sp123519/site-backups/public_html-20260913-before-remove-form-note.tar.gz /bin/bash /home8/sp123519/repositories/allbright-care-site/deploy/release.sh
+    - /bin/bash /home8/sp123519/repositories/allbright-care-site/deploy/release.sh --check
