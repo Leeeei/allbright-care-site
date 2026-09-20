@@ -1,5 +1,6 @@
 ---
-# Dry run: check release preconditions on the server. Changes nothing.
+# RELEASE: archive public_html, then publish site/. Replace 20260920-before-contact-email with a new, descriptive
+# name (e.g. 20260920-before-new-photos) and record it: restore.sh needs the exact name.
 deployment:
   tasks:
-    - /bin/bash /home8/sp123519/repositories/allbright-care-site/deploy/release.sh --check
+    - /usr/bin/env ARCHIVE=/home8/sp123519/site-backups/public_html-20260920-before-contact-email.tar.gz /bin/bash /home8/sp123519/repositories/allbright-care-site/deploy/release.sh
